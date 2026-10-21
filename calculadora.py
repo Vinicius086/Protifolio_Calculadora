@@ -1,5 +1,10 @@
 from datetime import datetime
 
+def multi_porcentagem(percen): # calcula a porcentagem multiplicando
+    percen = float(percen)
+    resultado = percen / 100
+    return str(resultado)
+
 def soma_porcentagem(percen): # calcula a porcentagem positiva
     percen = float(percen)
     resultado = percen / 100
@@ -54,15 +59,15 @@ def calculadora(numeros):
         porce = porce_invertida[::-1] # Desinverte o número da porcentagem para a posição original
         
         if sinal_origem == "+": # se o sinal da porecentage for '+'      
-            fator_multiplicacao = soma_porcentagem(porce) # usando a função 'soma_porcentagem'
+            fator_soma = soma_porcentagem(porce) # usando a função 'soma_porcentagem'
             
             # log temporario
             with open("log_Temporario.txt", "a", encoding="utf-8") as arquivo_log: # criando o log dos valores retornado 
-                print(f"{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}: Resultado da função 'soma_porcentagem'\nResultado: {fator_multiplicacao}\n"+"-"*100,file=arquivo_log)
+                print(f"{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}: Resultado da função 'soma_porcentagem'\nResultado: {fator_soma}\n"+"-"*100,file=arquivo_log)
 
             # historico de log
             with open("calculadora.log", "a", encoding="utf-8") as arquivo_log: # criando o log dos valores retornado 
-                print(f"{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}: Resultado da função 'soma_porcentagem'\nResultado: {fator_multiplicacao}\n"+"-"*100,file=arquivo_log)
+                print(f"{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}: Resultado da função 'soma_porcentagem'\nResultado: {fator_soma}\n"+"-"*100,file=arquivo_log)
                             
             # Pegamos tudo que estava antes do sinal de "+"
             parte_anterior = formula[:posicao_sinal]
@@ -82,12 +87,45 @@ def calculadora(numeros):
             with open("calculadora.log", "a", encoding="utf-8") as arquivo_log: # criando o log dos valores retornado 
                 print(f"{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}: soma da porcentagem já resolvida antes do proximo calculo\nResultado: {valor_acumulado}\n"+"-"*100,file=arquivo_log)
                             
-            # Monta a nova string substituindo "100+10%" por "100*1.1" (que o eval processará como 110)
+            nova_fatia_calculada = f"*{fator_soma}" # adicionado os valores da soma porcentagem caso tenha mais de uma porcentagem
+            
+            # Remonta a fórmula com o pedaço atualizado e o que sobrou depois do "%"
+            formula = valor_acumulado + nova_fatia_calculada + formula[crt + 1:]
+        
+        # calcular a multiplicação de porcentagem
+        elif sinal_origem == "*":
+            fator_multiplicacao = multi_porcentagem(porce) # função para multiplicar os valores
+            
+            # log temporario
+            with open("log_Temporario.txt", "a", encoding="utf-8") as arquivo_log: # criando o log dos valores retornado 
+                print(f"{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}: Multiplicação da porcentagem já resolvida antes do proximo calculo\nResultado: {fator_multiplicacao}\n"+"-"*100,file=arquivo_log)
+            # historico de log
+            with open("calculadora.log", "a", encoding="utf-8") as arquivo_log: # criando o log dos valores retornado 
+                print(f"{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}: Multiplicação já resolvida antes do proximo calculo\nResultado: {fator_multiplicacao}\n"+"-"*100,file=arquivo_log)
+            
+            # Pegamos tudo que estava antes do sinal de "*"
+            parte_anterior = formula[:posicao_sinal]
+            # log temporario
+            with open("log_Temporario.txt", "a", encoding="utf-8") as arquivo_log: # criando o log dos valores retornado 
+                print(f"{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}: Pegando a parte anterio ao sinal\nResultado: {parte_anterior}\n"+"-"*100,file=arquivo_log)
+            # historico de log
+            with open("calculadora.log", "a", encoding="utf-8") as arquivo_log: # criando o log dos valores retornado 
+                print(f"{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}: Pegando a parte anterio ao sinal\nResultado: {parte_anterior}\n"+"-"*100,file=arquivo_log)
+            
+            # Resolvemos o valor acumulado até aqui antes de aplicar a multiplicação
+            valor_acumulado = str(eval(parte_anterior))
+            # log temporario
+            with open("log_Temporario.txt", "a", encoding="utf-8") as arquivo_log: # criando o log dos valores retornado 
+                print(f"{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}: soma da porcentagem já resolvida antes do proximo calculo\nResultado: {valor_acumulado}\n"+"-"*100,file=arquivo_log)
+            # historico de log
+            with open("calculadora.log", "a", encoding="utf-8") as arquivo_log: # criando o log dos valores retornado 
+                print(f"{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}: soma da porcentagem já resolvida antes do proximo calculo\nResultado: {valor_acumulado}\n"+"-"*100,file=arquivo_log)
+                            
             nova_fatia_calculada = f"*{fator_multiplicacao}" # adicionado os valores da soma porcentagem caso tenha mais de uma porcentagem
             
             # Remonta a fórmula com o pedaço atualizado e o que sobrou depois do "%"
             formula = valor_acumulado + nova_fatia_calculada + formula[crt + 1:]
-            
+
         else:
             formula = formula[:posicao_sinal + 1] + f"({porce}/100)" + formula[crt + 1:] # para evitar erro caso colocado outros numeros
     # log temporario    
@@ -101,7 +139,7 @@ def calculadora(numeros):
     return calculo
 
 if __name__ == "__main__":
-    expressao_teste = "100+10%+10%+10%" # Valor texte só mente para validar a formula
+    expressao_teste = "100x10%+10%" # Valor texte só mente para validar a formula
     print(f"Calculando para: {expressao_teste}")
-    print(f"Resultado final: {calculadora(expressao_teste)}") # Saída: 121.0
+    print(f"Resultado final: {calculadora(expressao_teste)}")
 

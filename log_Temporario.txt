@@ -1,34 +1,25 @@
 ================================= CALCULADORA INICIADO COM SUCESSO =================================
-DATA e HORA: 2026-10-20 20:50:57
+DATA e HORA: 2026-10-20 21:46:08
 
-2026-10-20 20:50:57: Resultado da função 'soma_porcentagem'
-Resultado: 1.1
+2026-10-20 21:46:08: Multiplicação da porcentagem já resolvida antes do proximo calculo
+Resultado: 0.1
 ----------------------------------------------------------------------------------------------------
-2026-10-20 20:50:57: Pegando a parte anterio ao sinal
+2026-10-20 21:46:08: Pegando a parte anterio ao sinal
 Resultado: 100
 ----------------------------------------------------------------------------------------------------
-2026-10-20 20:50:57: soma da porcentagem já resolvida antes do proximo calculo
+2026-10-20 21:46:08: soma da porcentagem já resolvida antes do proximo calculo
 Resultado: 100
 ----------------------------------------------------------------------------------------------------
-2026-10-20 20:50:57: Resultado da função 'soma_porcentagem'
+2026-10-20 21:46:08: Resultado da função 'soma_porcentagem'
 Resultado: 1.1
 ----------------------------------------------------------------------------------------------------
-2026-10-20 20:50:57: Pegando a parte anterio ao sinal
-Resultado: 100*1.1
+2026-10-20 21:46:08: Pegando a parte anterio ao sinal
+Resultado: 100*0.1
 ----------------------------------------------------------------------------------------------------
-2026-10-20 20:50:57: soma da porcentagem já resolvida antes do proximo calculo
-Resultado: 110.00000000000001
+2026-10-20 21:46:08: soma da porcentagem já resolvida antes do proximo calculo
+Resultado: 10.0
 ----------------------------------------------------------------------------------------------------
-2026-10-20 20:50:57: Resultado da função 'soma_porcentagem'
-Resultado: 1.1
-----------------------------------------------------------------------------------------------------
-2026-10-20 20:50:57: Pegando a parte anterio ao sinal
-Resultado: 110.00000000000001*1.1
-----------------------------------------------------------------------------------------------------
-2026-10-20 20:50:57: soma da porcentagem já resolvida antes do proximo calculo
-Resultado: 121.00000000000003
-----------------------------------------------------------------------------------------------------
-2026-10-20 20:50:57: Formula finalizada!
+2026-10-20 21:46:08: Formula finalizada!
 
 ==================================================================================================== 
 
